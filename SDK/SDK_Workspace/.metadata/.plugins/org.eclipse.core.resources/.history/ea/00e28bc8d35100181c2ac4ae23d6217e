@@ -43,7 +43,7 @@
 #include "digdug_sprites_directors_cut.h"
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>
-#define SIZE 9
+#define SIZE 10
 #define UP 0b01000000
 #define DOWN 0b00000100
 #define LEFT 0b00100000
@@ -688,9 +688,8 @@ void move() {
 		moveBottomLeftZivanic();
 		moveLeftZivanic();
 		moveBottomRightZivanic();
-		drawMap(150, 16, 16, 180, 14, 1);
 
-		for (t = 0; t < 180000; t++) {
+		for (t = 0; t < 170000; t++) {
 		}
 
 	}
@@ -780,7 +779,7 @@ void initializeMapDrawing() {
 	//blue
 	for (j = 0; j < 3; j++) {
 		for (i = 0; i < 20; i++) {
-			drawMap(150, 16, 16 * i, 16 * j, 16, 16);
+			drawMap(150, 0, 16 * i, 16 * j, 0, 0);
 		}
 	}
 
@@ -818,6 +817,10 @@ void initializeMapDrawing() {
 			drawMap(134, 16, 16 * i, 176 + 16 * j, 16, 16);
 		}
 	}
+
+	drawMap(30, 0, 0, 225, 14, 13);
+	drawMap(30, 0, 16, 225, 14, 13);
+	drawMap(30, 0, 32, 225, 14, 13);
 
 	// Flower
 	drawMap(107, 86, 306, 14, 13, 13);
@@ -879,15 +882,20 @@ void initializeZivanis() {
 
 void deleteCoveculjak() {
 	if (endCheck == 0) {
-		drawMap(150, 16, 251, 14, 13, 13);
+		drawMap(30, 0, 0, 225, 14, 13);
+		drawMap(30, 0, 16, 225, 14, 13);
+		drawMap(0, 0, 32, 225, 14, 13);
 	} else if (endCheck == 1) {
-		drawMap(150, 16, 251, 14, 13, 13);
-
+		drawMap(30, 0, 0, 225, 14, 13);
+		drawMap(0, 0, 16, 225, 14, 13);
+		drawMap(0, 0, 32, 225, 14, 13);
 	} else if (endCheck == 2) {
-		drawMap(150, 16, 251, 14, 13, 13);
-
+		drawMap(30, 0, 0, 225, 14, 13);
+		drawMap(30, 0, 16, 225, 14, 13);
+		drawMap(30, 0, 32, 225, 14, 13);
 	}
 }
+
 
 int main() {
 

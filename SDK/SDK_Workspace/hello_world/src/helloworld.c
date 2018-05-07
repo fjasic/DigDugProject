@@ -779,7 +779,7 @@ void initializeMapDrawing() {
 	//blue
 	for (j = 0; j < 3; j++) {
 		for (i = 0; i < 20; i++) {
-			drawMap(150, 0, 16 * i, 16 * j, 16, 16);
+			drawMap(150, 0, 16 * i, 16 * j, 0, 0);
 		}
 	}
 
@@ -818,9 +818,9 @@ void initializeMapDrawing() {
 		}
 	}
 
-	drawMap(30, 0, 0, 225, 14, 13);
-	drawMap(30, 0, 16, 225, 14, 13);
-	drawMap(30, 0, 32, 225, 14, 13);
+	drawMap(0, 103, 0, 225, 16, 13);
+	drawMap(0, 103, 16, 225, 16, 13);
+	drawMap(0, 103, 32, 225, 16, 13);
 
 	// Flower
 	drawMap(107, 86, 306, 14, 13, 13);
@@ -882,17 +882,17 @@ void initializeZivanis() {
 
 void deleteCoveculjak() {
 	if (endCheck == 0) {
-		drawMap(30, 0, 0, 225, 14, 13);
-		drawMap(30, 0, 16, 225, 14, 13);
-		drawMap(0, 0, 32, 225, 14, 13);
+		drawMap(54, 103, 0, 225, 16, 13);
+		drawMap(0, 103, 16, 225, 16, 13);
+		drawMap(0, 103, 32, 225, 16, 13);
 	} else if (endCheck == 1) {
-		drawMap(30, 0, 0, 225, 14, 13);
-		drawMap(0, 0, 16, 225, 14, 13);
-		drawMap(0, 0, 32, 225, 14, 13);
+		drawMap(54, 103, 0, 225, 16, 13);
+		drawMap(54, 103, 16, 225, 16, 13);
+		drawMap(0, 103, 32, 225, 16, 13);
 	} else if (endCheck == 2) {
-		drawMap(30, 0, 0, 225, 14, 13);
-		drawMap(30, 0, 16, 225, 14, 13);
-		drawMap(30, 0, 32, 225, 14, 13);
+		drawMap(54, 103, 0, 225, 16, 13);
+		drawMap(54, 103, 16, 225, 16, 13);
+		drawMap(54, 103, 32, 225, 16, 13);
 	}
 }
 
@@ -1061,6 +1061,9 @@ int main() {
 
 			endCheck++;
 		}
+
+
+
 	}
 
 	cleanup_platform();
