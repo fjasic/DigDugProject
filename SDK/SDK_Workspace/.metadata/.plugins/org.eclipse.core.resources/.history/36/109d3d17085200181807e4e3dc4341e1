@@ -357,17 +357,17 @@ void moveRightZivanic() {
 			flagGoLeft1 = 1;
 		} else {
 			if (tmp1 < 10) {
-				drawMap(16, 67, rightH1 + 1, 58, 13, 13);
-				drawMap(150, 16, rightH1, 58, 1, 13);
+				drawMap(16, 67, rightH1 + 1, 59, 13, 13);
+				drawMap(150, 16, rightH1, 59, 1, 13);
 				tmp1++;
 			} else if (tmp1 < 20) {
 				drawMap(0, 67, rightH1 + 1, 58, 13, 13);
-				drawMap(150, 16, rightH1, 58, 1, 13);
+				drawMap(150, 16, rightH1, 61, 1, 13);
 				drawMap(150, 16, rightH1, 71, 13, 1);
 				tmp1++;
 			} else {
 				tmp1 = 0;
-				drawMap(150, 16, rightH1, 58, 1, 13);
+				drawMap(150, 16, rightH1, 59, 1, 13);
 			}
 
 		}
@@ -380,17 +380,17 @@ void moveRightZivanic() {
 			flagGoRight1 = 1;
 		} else {
 			if (tmp1 < 10) {
-				drawMapReverseRL(16, 67, leftH1 - 1, 58, 13, 13);
-				drawMapReverseRL(150, 16, leftH1, 58, 1, 13);
+				drawMapReverseRL(16, 67, leftH1 - 1, 59, 13, 13);
+				drawMapReverseRL(150, 16, leftH1, 59, 1, 13);
 				tmp1++;
 			} else if (tmp1 < 20) {
 				drawMapReverseRL(0, 67, leftH1 - 1, 58, 13, 13);
-				drawMapReverseRL(150, 16, leftH1, 58, 1, 13);
+				drawMapReverseRL(150, 16, leftH1, 59, 1, 13);
 				drawMapReverseRL(150, 16, leftH1, 71, 14, 1);
 				tmp1++;
 			} else {
 				tmp1 = 0;
-				drawMapReverseRL(150, 16, leftH1, 58, 1, 14);
+				drawMapReverseRL(150, 16, leftH1, 59, 1, 14);
 			}
 
 		}
@@ -878,10 +878,10 @@ void initializeMapDrawing() {
 	// x -> 3 + 15 * (14 + 1) = 228
 	// y -> /27/ + 1 + 2 * (14 + 1) =  58
 
-	drawMap(150, 16, 228, 56, 15, 16);
-	drawMap(150, 16, 243, 56, 15, 16);
-	drawMap(150, 16, 258, 56, 15, 16);
-	drawMap(150, 16, 273, 56, 15, 16);
+	drawMap(150, 16, 228, 58, 15, 15);
+	drawMap(150, 16, 243, 58, 15, 15);
+	drawMap(150, 16, 258, 58, 15, 15);
+	drawMap(150, 16, 273, 58, 14, 15);
 
 	//Bottom left hole
 	//x -> 3 + 4 * (14 + 1) = 63
