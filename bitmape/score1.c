@@ -1,11 +1,11 @@
-/* GIMP RGB C-Source image dump (start.c) */
+/* GIMP RGB C-Source image dump (score1.c) */
 
 static const struct {
-	unsigned int  	 width;
-	unsigned int  	 height;
-	unsigned int  	 bytes_per_pixel; /* 2:RGB16, 3:RGB, 4:RGBA */
-	unsigned char 	 pixel_data[180 * 118 * 3 + 1];
-} gimp_image1 = {
+  guint  	 width;
+  guint  	 height;
+  guint  	 bytes_per_pixel; /* 2:RGB16, 3:RGB, 4:RGBA */ 
+  guint8 	 pixel_data[180 * 118 * 3 + 1];
+} gimp_image = {
   180, 118, 3,
   "\000\000\000\330\330\370\330\330\370\330\330\370\330\330\370\000\000\000\000\000\000\001\001\001"
   "\000\000\000\000\000\000\330\330\370\330\330\370\330\330\370\330\330\370\000\000\000\000\000\000"
@@ -1826,6 +1826,4 @@ static const struct {
   "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
   "\000\000\000\000",
 };
-
-
 

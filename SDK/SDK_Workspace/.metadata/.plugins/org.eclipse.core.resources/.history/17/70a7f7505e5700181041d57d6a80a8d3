@@ -875,13 +875,8 @@ void initializeMapDrawing() {
 
 void initializeZivanis() {
 
-	///score///
-	drawMap(86,104,0,0,7,7);
-	drawMap(94,104,8,0,7,7);
-	drawMap(102,104,16,0,7,7);
-	drawMap(110,104,24,0,7,7);
-	drawMap(118,104,32,0,7,7);
 	/////////// ZIVANICI ////////////////
+
 	drawMap(16, 68, 228, 59, 14, 13);
 	drawMap(16, 38, 63, 164, 14, 13);
 	drawMap(16, 38, 48, 43, 13, 13);

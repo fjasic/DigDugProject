@@ -118,7 +118,30 @@ void clean(int x, int y, char resultTable[SIZE][SIZE],
 	}
 }
 
+void drawStart(int in_x, int in_y, int out_x, int out_y, int width, int height) {
+	int ox, oy, oi, iy, ix, ii;
+	for (y = 0; y < height; y++) {
+		for (x = 0; x < width; x++) {
+			ox = out_x + x;
+			oy = out_y + y;
+			oi = oy * 320 + ox;
+			ix = in_x + x;
+			iy = in_y + y;
+			ii = iy * gimp_image1.width + ix;
+			R = gimp_image1.pixel_data[ii * gimp_image1.bytes_per_pixel] >> 5;
+			G = gimp_image1.pixel_data[ii * gimp_image1.bytes_per_pixel + 1] >> 5;
+			B = gimp_image1.pixel_data[ii * gimp_image1.bytes_per_pixel + 2] >> 5;
+			R <<= 6;
+			G <<= 3;
+			RGB = R | G | B;
 
+			VGA_PERIPH_MEM_mWriteMemory(
+					XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + GRAPHICS_MEM_OFF + oi * 4,
+					RGB);
+		}
+	}
+
+}
 
 void drawMap(int in_x, int in_y, int out_x, int out_y, int width, int height) {
 	int ox, oy, oi, iy, ix, ii;
@@ -875,13 +898,8 @@ void initializeMapDrawing() {
 
 void initializeZivanis() {
 
-	///score///
-	drawMap(86,104,0,0,7,7);
-	drawMap(94,104,8,0,7,7);
-	drawMap(102,104,16,0,7,7);
-	drawMap(110,104,24,0,7,7);
-	drawMap(118,104,32,0,7,7);
 	/////////// ZIVANICI ////////////////
+
 	drawMap(16, 68, 228, 59, 14, 13);
 	drawMap(16, 38, 63, 164, 14, 13);
 	drawMap(16, 38, 48, 43, 13, 13);
