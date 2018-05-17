@@ -72,7 +72,6 @@ int flagTrue;
 int randomCounter = 50;
 int numOfMines;
 int firstTimeCenter;
-double score=0;
 //map that is hidden from the user-it contains the solution
 char solvedMap[9][9];
 //map that has all of player's moves
@@ -204,7 +203,7 @@ void drawMapReverseDU(int in_x, int in_y, int out_x, int out_y, int width,
 
 int startX = 153, startY = 103, endX = 166, endY = 116;
 int oldStartX, oldStartY, oldEndX, oldEndY;
-int x, y, ic, ib, i, j, t, tmp,vreme;
+int x, y, ic, ib, i, j, t, tmp;
 int flagGoRight1 = 1, flagGoLeft1 = 0, rightH1 = 227, leftH1 = 0;
 int flagGoRight2 = 1, flagGoLeft2 = 0, rightH2 = 62, leftH2 = 0;
 int flagGoDown1 = 1, flagGoUp1 = 0, downH1 = 43, upH1 = 0;
@@ -251,7 +250,6 @@ void right() {
 			drawMap(30, 0, startX, startY, 14, 14);
 			drawMap(150, 16, oldStartX, startY, 1, 14);
 			tmp++;
-
 		} else if (tmp < 8) {
 			drawMap(46, 0, startX, startY, 14, 14);
 			drawMap(150, 16, oldStartX, startY, 1, 14);
@@ -599,55 +597,19 @@ void endOfGameCheck() {
 		}
 	}
 }
-
-
 void move() {
 
 	while (endOfGame != 1) {
 
 		endOfGameCheck();
-		if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & CENTER) == 0) {
-						//ako je desno
-				if(previousState==2){
-									for (vreme = 0; vreme < 150; vreme++) {
-										drawMap(0,85,startX+13,startY,17,14);
-									}
-									drawMap(138,60,startX+13,startY,17,14);
-				}
-				else if(previousState==3){
-						//ako je levo
-									for (vreme = 0; vreme < 150; vreme++) {
 
-										drawMapReverseRL(0,85,startX-13,startY,17,14);
-									}
-									drawMap(138,60,startX-17,startY,17,14);
-				}
-				else if(previousState==4){
-						//ako je gore
-									for (vreme = 0; vreme < 150; vreme++) {
-														drawMap(154,85,startX,startY-17,14,17);
-													}
-													drawMap(138,60,startX,startY-17,14,17);
-				}
-				else{
-						//ako je dole
-								for (vreme = 0; vreme < 150; vreme++) {
-									drawMap(139,85,startX,startY+13,14,17);
-																	}
-								drawMap(138,60,startX,startY+13,14,17);
-				}
-
-								}
-
-		else if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & DOWN) == 0) {
+		if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & DOWN) == 0) {
 			if ((startX - 3) % 15 != 0) {
 				if (previousState == 3) {
 					while ((startX - 3) % 15 != 0) {
 						for (t = 0; t < 150000; t++) {
 						}
 						left();
-						score+=0.25;
-						updateScore();
 					}
 				}
 				if (previousState == 2) {
@@ -655,17 +617,11 @@ void move() {
 						for (t = 0; t < 150000; t++) {
 						}
 						right();
-						score+=0.25;
-						updateScore();
-
 					}
 				}
 
 			} else {
 				down();
-				score+=0.25;
-				updateScore();
-
 			}
 		}
 
@@ -676,9 +632,6 @@ void move() {
 						for (t = 0; t < 150000; t++) {
 						}
 						up();
-						score+=0.25;
-						updateScore();
-
 					}
 				}
 				if (previousState == 1) {
@@ -686,16 +639,10 @@ void move() {
 						for (t = 0; t < 150000; t++) {
 						}
 						down();
-						score+=0.25;
-						updateScore();
-
 					}
 				}
 			} else {
 				right();
-				score+=0.25;
-				updateScore();
-
 			}
 		} else if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & LEFT) == 0) {
 
@@ -705,8 +652,6 @@ void move() {
 						for (t = 0; t < 150000; t++) {
 						}
 						up();
-						score+=0.25;
-												updateScore();
 					}
 				}
 				if (previousState == 1) {
@@ -714,15 +659,10 @@ void move() {
 						for (t = 0; t < 150000; t++) {
 						}
 						down();
-						score+=0.25;
-						updateScore();
-
 					}
 				}
 			} else {
 				left();
-				score+=0.25;
-										updateScore();
 			}
 
 		} else if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & UP) == 0) {
@@ -732,8 +672,6 @@ void move() {
 						for (t = 0; t < 150000; t++) {
 						}
 						left();
-						score+=0.25;
-						updateScore();
 					}
 				}
 				if (previousState == 2) {
@@ -741,15 +679,11 @@ void move() {
 						for (t = 0; t < 150000; t++) {
 						}
 						right();
-						score+=0.25;
-						updateScore();
 					}
 				}
 
 			} else {
 				up();
-				score+=0.25;
-				updateScore();
 			}
 		}
 
@@ -762,216 +696,6 @@ void move() {
 		}
 
 	}
-}
-
-void updateScore(){
-	drawMap(126,104,32,8,5,7);
-	if(score ==50){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-
-	}else if(score==100){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(130,104,16,8,5,7);
-
-	}else if(score==150){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(130,104,16,8,5,7);
-	}else if(score==200){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(135,104,16,8,5,7);
-	}else if(score==250){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(135,104,16,8,5,7);
-	}else if(score==300){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(140,104,16,8,5,7);
-	}else if(score==350){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(140,104,16,8,5,7);
-	}else if(score==400){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(145,104,16,8,5,7);
-	}else if(score==450){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(145,104,16,8,5,7);
-	}else if(score==500){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(150,104,16,8,5,7);
-	}else if(score==550){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(150,104,16,8,5,7);
-	}else if(score==600){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(155,104,16,8,5,7);
-	}else if(score==650){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(155,104,16,8,5,7);
-	}else if(score==700){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(160,104,16,8,5,7);
-	}else if(score==750){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(160,104,16,8,5,7);
-	}else if(score==800){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(165,104,16,8,5,7);
-	}else if(score==850){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(165,104,16,8,5,7);
-	}else if(score==900){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(170,104,16,8,5,7);
-	}else if(score==950){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(170,104,16,8,5,7);
-
-
-	}else if(score==1000){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(126,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1050){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(126,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-	}else if(score==1100){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(130,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1150){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(130,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1200){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(135,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1250){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(135,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1300){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(140,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1350){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(140,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1400){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(145,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1450){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(145,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1500){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(150,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1550){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(150,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1600){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(155,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1650){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(155,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1700){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(160,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1750){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(160,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1800){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(165,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1850){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(165,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1900){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(170,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==1950){
-		drawMap(126,104,32,8,5,7);
-		drawMap(150,104,24,8,5,7);
-		drawMap(170,104,16,8,5,7);
-		drawMap(130,104,8,8,5,7);
-
-	}else if(score==2000){
-		drawMap(126,104,32,8,5,7);
-		drawMap(126,104,24,8,5,7);
-		drawMap(175,104,16,8,5,7);
-		drawMap(135,104,8,8,5,7);
-
-	}
-
 }
 
 void initializeDiggerMoving() {
@@ -1157,8 +881,6 @@ void initializeZivanis() {
 	drawMap(102,104,16,0,7,7);
 	drawMap(110,104,24,0,7,7);
 	drawMap(118,104,32,0,7,7);
-	//zero
-	drawMap(126,104,32,8,5,7);
 
 	/////////// ZIVANICI ////////////////
 	drawMap(16, 68, 228, 59, 14, 13);
@@ -1328,6 +1050,7 @@ int main() {
 			break;
 		} else {
 			move();
+
 			int s;
 			for (s = 0; s < 1500000; s++) {
 			};
