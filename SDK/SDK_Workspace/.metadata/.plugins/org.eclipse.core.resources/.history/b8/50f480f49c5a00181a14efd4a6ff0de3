@@ -698,7 +698,7 @@ void unisteniDesni(){
 	drawMap(150, 16, 228, 163, 14, 15);
 	drawMap(150, 16, 228, 178, 14, 15);
 	drawMap(150, 16, 228, 193, 14, 14);
-    drawMap(0,67,162,0,13,12);
+    drawMap(0,67,126,0,13,12);
 
 }
 void unisteniLeviDole(){
