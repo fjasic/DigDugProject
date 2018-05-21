@@ -60,8 +60,6 @@
 #define BLANK '0'
 #define FLAG '#'
 #define NUMOFMINES 9
-int unisteni=0;
-
 //BEG---unpened field
 #define BEG '@'
 
@@ -101,7 +99,6 @@ void printOutEndOfGame(char blankTable[SIZE][SIZE], char solvedMap[SIZE][SIZE]) 
 }
 
 //when the blank field is pressed, open all blank fields around it
-
 void clean(int x, int y, char resultTable[SIZE][SIZE],
 		char indicationMap[SIZE][SIZE]) {
 	int i, j;
@@ -214,6 +211,14 @@ int flagGoDown2 = 1, flagGoUp2 = 0, downH2 = 148, upH2 = 0;
 int tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
 int previousState = 0;
 int endCheck = 0;
+
+//CETRI REGISTRA ZA SVAKU STRANU
+int unistenaLevaStrana=0;
+int unistenaLevaDonjaStrana=0;
+int unistenaDesnaStrana=0;
+int unistenaDesnaDonjaStrana=0;
+
+//KRETANJE PLAYERA DOLE
 void down() {
 	if (endY < 221) {
 		oldStartY = startY;
@@ -239,7 +244,7 @@ void down() {
 	}
 
 }
-
+//KRETANJE PLAYERA DESNO
 void right() {
 	if (endX < 316) {
 		oldStartX = startX;
@@ -266,7 +271,7 @@ void right() {
 	}
 
 }
-
+//KRETANJE PLAYERA LEVO
 void left() {
 	if (startX > 3) {
 		oldStartX = startX;
@@ -293,7 +298,7 @@ void left() {
 	}
 
 }
-
+//KRETANJE PLAYERA GORE
 void up() {
 	if (startY > 28) {
 		oldStartY = startY;
@@ -319,11 +324,8 @@ void up() {
 	}
 
 }
-
+//KRETANJE DESNOG
 void moveRightZivanic() {
-	if(unisteni==4){
-
-	}else{
 	if (flagGoRight1 == 1) {
 		rightH1++;
 		if (rightH1 > 272) {
@@ -369,15 +371,13 @@ void moveRightZivanic() {
 			}
 
 		}
-	}
+
 	}
 
 }
-
+//KRETANJE DONJEG DESNOG NEGATIVCA
 void moveBottomRightZivanic() {
-	if(unisteni==3){
 
-	}else{
 	if (flagGoDown2 == 1) {
 		downH2++;
 		if (downH2 > 193) {
@@ -426,12 +426,12 @@ void moveBottomRightZivanic() {
 			}
 
 		}
-	}
+
 	}
 }
-
+//KRETANJE LEVOG NEGATIVCA
 void moveLeftZivanic() {
-	if(unisteni==1){}else{
+
 	if (flagGoDown1 == 1) {
 		downH1++;
 		if (downH1 > 88) {
@@ -480,12 +480,11 @@ void moveLeftZivanic() {
 			}
 
 		}
-	}
+
 	}
 }
-
+//KRETANJE DONJEG LEVOG NEGATIVCA
 void moveBottomLeftZivanic() {
-	if(unisteni==2){}else{
 	if (flagGoRight2 == 1) {
 		rightH2++;
 		if (rightH2 > 108) {
@@ -532,37 +531,45 @@ void moveBottomLeftZivanic() {
 			}
 
 		}
-		
+
 	}
 }
+//PROVERA DA LI JE KRAJ IGRICE
 void endOfGameCheck() {
-
+	
 	//Check left
 	if (flagGoDown1 == 1) {
+	if(unistenaLevaStrana!=1){
 		if (downH1 == startY - 14 || downH1 == startY - 13
 				|| downH1 == startY - 15) {
 			if (startX == 47 || startX == 48) {
-				endOfGame=1;
+				endOfGame = 1;
 			}
 		}
+	}
 	} else if (flagGoUp1 == 1) {
+	if(unistenaLevaStrana!=1){
 		if (upH1 == startY + 14 || upH1 == startY + 13 || upH1 == startY + 15) {
 			if (startX == 47 || startX == 48) {
 				endOfGame = 1;
 			}
 		}
 	}
+	}
 
+	
 	//Check bottom left
-
 	if (flagGoRight2 == 1) {
+	if(unistenaLevaDonjaStrana!=1){
 		if (rightH2 == startX - 14 || rightH2 == startX - 13
 				|| rightH2 == startX - 15) {
 			if (startY == 163 || startY == 164) {
 				endOfGame = 1;
 			}
 		}
+	}
 	} else if (flagGoLeft2 == 1) {
+	  if(unistenaLevaDonjaStrana!=1){
 		if (leftH2 == startX + 14 || leftH2 == startX + 13
 				|| leftH2 == startX + 15) {
 			if (startY == 163 || startY == 164) {
@@ -570,17 +577,22 @@ void endOfGameCheck() {
 			}
 		}
 	}
+	}
+	
 
+	
 	//Check right
-
 	if (flagGoRight1 == 1) {
+	if(unistenaDesnaStrana!=1){
 		if (rightH1 == startX - 14 || rightH1 == startX - 13
 				|| rightH1 == startX - 15) {
 			if (startY == 58 || startY == 59) {
 				endOfGame = 1;
 			}
 		}
+	}	
 	} else if (flagGoLeft1 == 1) {
+	if(unistenaDesnaStrana!=1){
 		if (leftH1 == startX + 14 || leftH1 == startX + 13
 				|| leftH1 == startX + 15) {
 			if (startY == 58 || startY == 59) {
@@ -588,187 +600,170 @@ void endOfGameCheck() {
 			}
 		}
 	}
+	}
 
+	
 	//Check bottom right
-
 	if (flagGoDown2 == 1) {
+	if(unistenaDesnaDonjaStrana!=1){
 		if (downH2 == startY - 14 || downH2 == startY - 13
 				|| downH2 == startY - 15) {
 			if (startX == 227 || startX == 228) {
 				endOfGame = 1;
 			}
 		}
+	}	
 	} else if (flagGoUp2 == 1) {
+	if(unistenaDesnaDonjaStrana!=1){	
 		if (upH2 == startY + 14 || upH2 == startY + 13 || upH2 == startY + 15) {
 			if (startX == 227 || startX == 228) {
 				endOfGame = 1;
 			}
 		}
 	}
+	}
+
+
 }
-
-
+//VATRA
 void flame(){
 	//Check left
 	if (flagGoDown1 == 1) {
-		if (downH1 == startY - 17 || downH1 == startY - 11
-				|| downH1 == startY -15) {
-						if (startX == 47 || startX == 48 || startX==46) {
-				unisteni= 1;
-				score+=150;
-						}
+		if (downH1 == startY - 22 || downH1 == startY - 23 || downH1 == startY -24 || downH1==startY-25) {
+						if (startX == 47 || startX == 48 || startX==46 ) {
+							unistenaLevaStrana= 1;
+							score+=150;
+							}
 		}
 	} else if (flagGoUp1 == 1) {
-		if (upH1 == startY + 17 || upH1 == startY +11 || upH1 == startY + 15) {
+		if (upH1 == startY + 22 || upH1 == startY +23 || upH1 == startY + 24 || upH1==startY+25) {
 						if (startX == 47 || startX == 48 || startX==46) {
-				unisteni= 1;
-				score+=150;
-						}		
+							unistenaLevaStrana= 1;
+							score+=150;
+							}
 		}
 	}
 
 	//Check bottom left
 	if (flagGoRight2 == 1) {
-		if (rightH2 == startX - 17 || rightH2 == startX - 11
-				|| rightH2 == startX - 15) {
-								if (startY == 163 || startY == 164 || startY==162) {
-				unisteni= 2;
-				score+=150;
-								}
+		if (rightH2 == startX - 22 || rightH2 == startX - 23|| rightH2 == startX - 24 || rightH2==startX-25) {
+						if (startY == 163 || startY == 164 || startY==162) {
+							unistenaLevaDonjaStrana=1;
+							score+=150;
+							}
 		}
 	} else if (flagGoLeft2 == 1) {
-		if (leftH2 == startX + 17 || leftH2 == startX + 11
-				|| leftH2 == startX + 15) {
-								if (startY == 163 || startY == 164 || startY==162) {
-				unisteni= 2;
-				score+=150;
-								}
+		if (leftH2 == startX + 22 || leftH2 == startX + 23 || leftH2 == startX + 24 || leftH2 == startX + 25) {
+						if (startY == 163 || startY == 164 || startY==162) {
+						unistenaLevaDonjaStrana=1;
+						score+=150;
+							}
 		}
 	}
 
 	//Check right
-
 	if (flagGoRight1 == 1) {
-		if (rightH1 == startX - 17 || rightH1 == startX - 11
-				|| rightH1 == startX - 15) {
-										if (startY == 58 || startY == 59 || startY==57) {
-				unisteni= 4;
-				score+=250;
-										}
+		if (rightH1 == startX -22 || rightH1 == startX - 23 || rightH1 == startX - 24 || rightH1 ==startX -25) {
+						if (startY == 58 || startY == 59 || startY==57) {
+							unistenaDesnaStrana=1;
+							score+=250;
+							}
 		}
 	} else if (flagGoLeft1 == 1) {
-		if (leftH1 == startX + 17 || leftH1 == startX + 11
-				|| leftH1 == startX + 15) {
-					if (startY == 58 || startY == 59 || startY ==57) {
-				unisteni= 4;
-				score+=250;
-					}
+		if (leftH1 == startX + 22 || leftH1 == startX + 23 || leftH1 == startX + 24 || leftH1 == startX +25) {
+						if (startY == 58 || startY == 59 || startY ==57) {
+							unistenaDesnaStrana=1;
+							score+=250;
+							}
 		}
 	}
 
 	//Check bottom right
 
 	if (flagGoDown2 == 1) {
-		if (downH2 == startY - 17 || downH2 == startY -11
-				|| downH2 == startY - 15) {
-								if (startX == 227 || startX == 228 || startX==226) {
-				unisteni= 3;
-				score+=250;
-								}
+		if (downH2 == startY - 22 || downH2 == startY -23 || downH2 == startY - 24 || downH2==startY - 25) {
+						if (startX == 227 || startX == 228 || startX==226) {
+							unistenaDesnaDonjaStrana=1;
+							score+=250;
+							}
 		}
 	} else if (flagGoUp2 == 1) {
-		if (upH2 == startY + 17 || upH2 == startY + 11 || upH2 == startY + 15) {
+		if (upH2 == startY + 22 || upH2 == startY + 23 || upH2 == startY + 24 || upH2== startY + 25) {
 						if (startX == 227 || startX == 228 || startX ==226) {
-				unisteni= 3;
-				score+=250;
-						}
+							unistenaDesnaDonjaStrana=1;
+							score+=250;
+							}	
 		}
 	}
-	
+
 }
+//ISCRTAVANJE BAD GUYS KOJE POBEDIM
 void unisteniLevi(){
-	drawMap(150, 16, 48, 43, 14, 15);
-	drawMap(150, 16, 48, 58, 14, 15);
-	drawMap(150, 16, 48, 73, 14, 15);
-	drawMap(150, 16, 48, 88, 14, 14);
-	drawMap(0,39,150,0,13,12);
+	initializeLeftHoleDrawing();
 }
 void unisteniDesni(){
-	drawMap(150, 16, 228, 148, 14, 15);
-	drawMap(150, 16, 228, 163, 14, 15);
-	drawMap(150, 16, 228, 178, 14, 15);
-	drawMap(150, 16, 228, 193, 14, 14);
-    drawMap(0,67,162,0,13,12);
-
+	initializeRightHoleDrawing();
 }
 void unisteniLeviDole(){
-	drawMap(150, 16, 63, 163, 15, 14);
-	drawMap(150, 16, 78, 163, 15, 14);
-	drawMap(150, 16, 93, 163, 15, 14);
-	drawMap(150, 16, 108, 163, 14, 14);
-	drawMap(0,39,162,0,13,12);
-
+	initializeBottomLeftHoleDrawing();
 }
 void unisteniDesniDole(){
-	drawMap(150, 16, 228, 148, 14, 15);
-	drawMap(150, 16, 228, 163, 14, 15);
-	drawMap(150, 16, 228, 178, 14, 15);
-	drawMap(150, 16, 228, 193, 14, 14);
-	drawMap(0,39,138,0,13,12);
-
+	initializeBottomRightHoleDrawing();
 }
 
+//KRETANJE 
 void move() {
+	
 	while (endOfGame != 1) {
 		endOfGameCheck();
-			flame();
 		if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & CENTER) == 0) {
-				//ako je desno
-				if(previousState==2){
-									for (vreme = 0; vreme < 150; vreme++) {
-										drawMap(0,85,startX+13,startY,14,14);
-									}
-									drawMap(138,60,startX+13,startY,14,14);
-				}
-				else if(previousState==3){
-						//ako je levo
-									for (vreme = 0; vreme < 150; vreme++) {
+			flame();
 
-										drawMapReverseRL(0,85,startX-13,startY,14,14);
-									}
-									drawMap(138,60,startX-17,startY,14,14);
-				}
-				else if(previousState==4){
-						//ako je gore
-									for (vreme = 0; vreme < 150; vreme++) {
-														drawMap(154,85,startX,startY-14,14,14);
+		//ako je desno
+		if(previousState==2){
+		for (vreme = 0; vreme < 150; vreme++) {
+			drawMap(0,85,startX+13,startY,14,14);
 
-													}
-													drawMap(138,60,startX,startY-14,14,14);
-				}
-				else{
-						//ako je dole
-								for (vreme = 0; vreme < 150; vreme++) {
-									drawMap(139,85,startX,startY+14,14,14);
+		}
+		drawMap(138,60,startX+13,startY,14,14);
 
-																	}
-								drawMap(138,60,startX,startY+14,14,14);
-				}
+		}
+		else if(previousState==3){
+		//ako je levo
+		for (vreme = 0; vreme < 150; vreme++) {
+			drawMapReverseRL(0,85,startX-13,startY,14,14);
 
-								}
-	
+		}
+		drawMap(138,60,startX-17,startY,14,14);
 
-		else if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & DOWN) == 0) {
+		}
+		else if(previousState==4){
+		//ako je gore
+		for (vreme = 0; vreme < 150; vreme++) {
+			drawMap(154,85,startX,startY-14,14,14);
+		}
+		drawMap(138,60,startX,startY-14,14,14);				
+		}
+		else{
+		//ako je dole
+		for (vreme = 0; vreme < 150; vreme++) {
+			drawMap(139,85,startX,startY+14,14,14);
+		}
+		drawMap(138,60,startX,startY+14,14,14);
+		}
+	}
+
+		if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & DOWN) == 0) {
 			if ((startX - 3) % 15 != 0) {
 				if (previousState == 3) {
 					while ((startX - 3) % 15 != 0) {
-						for (t = 0; t < 150000; t++) {
-						}
+
 						left();
 						score+=0.25;
 						updateScore();
 					}
 				}
+			}
 				if (previousState == 2) {
 					while ((startX - 3) % 15 != 0) {
 						for (t = 0; t < 150000; t++) {
@@ -780,7 +775,7 @@ void move() {
 					}
 				}
 
-			} else {
+			 else {
 				down();
 				score+=0.25;
 				updateScore();
@@ -825,7 +820,7 @@ void move() {
 						}
 						up();
 						score+=0.25;
-												updateScore();
+						updateScore();
 					}
 				}
 				if (previousState == 1) {
@@ -841,7 +836,7 @@ void move() {
 			} else {
 				left();
 				score+=0.25;
-										updateScore();
+				updateScore();
 			}
 
 		} else if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & UP) == 0) {
@@ -872,40 +867,39 @@ void move() {
 			}
 		}
 
-		if (unisteni==1){
-		moveRightZivanic();
-		moveBottomLeftZivanic();
-		moveBottomRightZivanic();
-		unisteniLevi();
-		}else if(unisteni==2){
-		moveRightZivanic();
-		moveLeftZivanic();
-		moveBottomRightZivanic();
-		unisteniLeviDole();
-		}else if(unisteni==3){
-		moveRightZivanic();
-		moveBottomLeftZivanic();
-		moveLeftZivanic();
-		unisteniDesniDole();
-		}else if(unisteni==4){
-		moveBottomLeftZivanic();
-		moveLeftZivanic();
-		moveBottomRightZivanic();
-		unisteniDesni();
-		}else{
-		moveRightZivanic();
-		moveBottomLeftZivanic();
-		moveLeftZivanic();
-		moveBottomRightZivanic();
-		
-		}
+		if (unistenaLevaStrana==1){
+			if(unistenaDesnaStrana!=1){moveRightZivanic();}
+			if(unistenaLevaDonjaStrana!=1){moveBottomLeftZivanic();}
+			if(unistenaDesnaDonjaStrana!=1){moveBottomRightZivanic();}
+			unisteniLevi();
+			}else if(unistenaLevaDonjaStrana==1){
+			if(unistenaDesnaStrana!=1){moveRightZivanic();}
+			if(unistenaLevaStrana!=1){moveLeftZivanic();}
+			if(unistenaDesnaDonjaStrana!=1){moveBottomRightZivanic();}
+			unisteniLeviDole();
+			}else if(unistenaDesnaDonjaStrana==1){
+			if(unistenaLevaDonjaStrana!=1){moveBottomLeftZivanic();}
+			if(unistenaLevaStrana!=1){moveLeftZivanic();}
+			if(unistenaDesnaStrana!=1){moveRightZivanic();}
+			unisteniDesniDole();
+			}else if(unistenaDesnaStrana==1){
+			if(unistenaLevaDonjaStrana!=1){moveBottomLeftZivanic();}
+			if(unistenaLevaStrana!=1){moveLeftZivanic();}
+			if(unistenaDesnaDonjaStrana!=1){moveBottomRightZivanic();}
+			unisteniDesni();
+			}else{
+			moveRightZivanic();
+			moveBottomLeftZivanic();
+			moveLeftZivanic();
+			moveBottomRightZivanic();
+			}
 
-		for (t = 0; t < 170000; t++) {
+		for (t = 0; t < 150000; t++) {
 		}
 
 	}
 }
-
+//SCOREBOARD
 void updateScore(){
 	drawMap(126,104,32,8,5,7);
 	if(score ==50){
@@ -985,14 +979,11 @@ void updateScore(){
 		drawMap(126,104,32,8,5,7);
 		drawMap(150,104,24,8,5,7);
 		drawMap(170,104,16,8,5,7);
-
-
 	}else if(score==1000){
 		drawMap(126,104,32,8,5,7);
 		drawMap(126,104,24,8,5,7);
 		drawMap(126,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1050){
 		drawMap(126,104,32,8,5,7);
 		drawMap(150,104,24,8,5,7);
@@ -1003,119 +994,100 @@ void updateScore(){
 		drawMap(126,104,24,8,5,7);
 		drawMap(130,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1150){
 		drawMap(126,104,32,8,5,7);
 		drawMap(150,104,24,8,5,7);
 		drawMap(130,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1200){
 		drawMap(126,104,32,8,5,7);
 		drawMap(126,104,24,8,5,7);
 		drawMap(135,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1250){
 		drawMap(126,104,32,8,5,7);
 		drawMap(150,104,24,8,5,7);
 		drawMap(135,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1300){
 		drawMap(126,104,32,8,5,7);
 		drawMap(126,104,24,8,5,7);
 		drawMap(140,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1350){
 		drawMap(126,104,32,8,5,7);
 		drawMap(150,104,24,8,5,7);
 		drawMap(140,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1400){
 		drawMap(126,104,32,8,5,7);
 		drawMap(126,104,24,8,5,7);
 		drawMap(145,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1450){
 		drawMap(126,104,32,8,5,7);
 		drawMap(150,104,24,8,5,7);
 		drawMap(145,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1500){
 		drawMap(126,104,32,8,5,7);
 		drawMap(126,104,24,8,5,7);
 		drawMap(150,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1550){
 		drawMap(126,104,32,8,5,7);
 		drawMap(150,104,24,8,5,7);
 		drawMap(150,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1600){
 		drawMap(126,104,32,8,5,7);
 		drawMap(126,104,24,8,5,7);
 		drawMap(155,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1650){
 		drawMap(126,104,32,8,5,7);
 		drawMap(150,104,24,8,5,7);
 		drawMap(155,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1700){
 		drawMap(126,104,32,8,5,7);
 		drawMap(126,104,24,8,5,7);
 		drawMap(160,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1750){
 		drawMap(126,104,32,8,5,7);
 		drawMap(150,104,24,8,5,7);
 		drawMap(160,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1800){
 		drawMap(126,104,32,8,5,7);
 		drawMap(126,104,24,8,5,7);
 		drawMap(165,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1850){
 		drawMap(126,104,32,8,5,7);
 		drawMap(150,104,24,8,5,7);
 		drawMap(165,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1900){
 		drawMap(126,104,32,8,5,7);
 		drawMap(126,104,24,8,5,7);
 		drawMap(170,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==1950){
 		drawMap(126,104,32,8,5,7);
 		drawMap(150,104,24,8,5,7);
 		drawMap(170,104,16,8,5,7);
 		drawMap(130,104,8,8,5,7);
-
 	}else if(score==2000){
 		drawMap(126,104,32,8,5,7);
 		drawMap(126,104,24,8,5,7);
 		drawMap(175,104,16,8,5,7);
 		drawMap(135,104,8,8,5,7);
-
 	}
 
 }
-
+//POMERANJE PLAYERA
 void initializeDiggerMoving() {
 
 	///////////// START POSITION ///////////////
@@ -1192,7 +1164,7 @@ void initializeDiggerMoving() {
 
 	/////////////////////////////////////////////
 }
-
+//ISCRTAVANJE MAPE
 void initializeMapDrawing() {
 	/************************   MAP   ************************/
 
@@ -1245,15 +1217,6 @@ void initializeMapDrawing() {
 
 	// Flower
 	drawMap(107, 86, 306, 14, 13, 13);
-	//Left hole
-	// x -> 3 + 3 * (14 + 1) = 48
-	// y -> /27/ + 1 + (14 + 1) = 43
-
-	drawMap(150, 16, 48, 43, 14, 15);
-	drawMap(150, 16, 48, 58, 14, 15);
-	drawMap(150, 16, 48, 73, 14, 15);
-	drawMap(150, 16, 48, 88, 14, 14);
-
 	//Center hole
 	// x -> 3 + 9 * (14 + 1) = 138
 	// y -> /27/ + 1 + 6 * (14 + 1) = 103
@@ -1262,35 +1225,34 @@ void initializeMapDrawing() {
 	drawMap(150, 16, 153, 103, 15, 14);
 	drawMap(150, 16, 168, 103, 14, 14);
 
-	//Right hole
-	// x -> 3 + 15 * (14 + 1) = 228
-	// y -> /27/ + 1 + 2 * (14 + 1) =  58
 
-	drawMap(150, 16, 228, 58, 15, 14);
-	drawMap(150, 16, 243, 58, 15, 14);
-	drawMap(150, 16, 258, 58, 15, 14);
-	drawMap(150, 16, 273, 58, 15, 14);
+}
 
-	//Bottom left hole
-	//x -> 3 + 4 * (14 + 1) = 63
-	//y -> /27/ + 1 + 9 * (14 + 1) = 163
-
+void initializeLeftHoleDrawing(){
+	drawMap(150, 16, 48, 43, 14, 15);
+	drawMap(150, 16, 48, 58, 14, 15);
+	drawMap(150, 16, 48, 73, 14, 15);
+	drawMap(150, 16, 48, 88, 14, 14);
+}
+void initializeBottomLeftHoleDrawing(){
 	drawMap(150, 16, 63, 163, 15, 14);
 	drawMap(150, 16, 78, 163, 15, 14);
 	drawMap(150, 16, 93, 163, 15, 14);
 	drawMap(150, 16, 108, 163, 14, 14);
-
-	//Bottom right hole
-	//x -> 3 + 15 * (14 + 1) = 228
-	//y -> /27/ + 1 + 8 * (14 + 1) = 148
-
+}
+void initializeBottomRightHoleDrawing(){
 	drawMap(150, 16, 228, 148, 14, 15);
 	drawMap(150, 16, 228, 163, 14, 15);
 	drawMap(150, 16, 228, 178, 14, 15);
 	drawMap(150, 16, 228, 193, 14, 14);
-
 }
-
+void initializeRightHoleDrawing(){
+	drawMap(150, 16, 228, 58, 15, 14);
+	drawMap(150, 16, 243, 58, 15, 14);
+	drawMap(150, 16, 258, 58, 15, 14);
+	drawMap(150, 16, 273, 58, 15, 14);
+}
+//ISCRTAVANJE THE BAD GUYS
 void initializeZivanis() {
 
 	///score///
@@ -1303,31 +1265,24 @@ void initializeZivanis() {
 	drawMap(126,104,32,8,5,7);
 
 	/////////// ZIVANICI ////////////////
-	if (unisteni==1){
-		drawMap(16, 68, 228, 59, 14, 13);//desni
-		drawMap(16, 38, 63, 164, 14, 13);//levi dole 
-		drawMap(16, 38, 228, 148, 13, 13);//desni dole
-		}else if(unisteni==2){
-		drawMap(16, 68, 228, 59, 14, 13);//desni
-		drawMap(16, 38, 48, 43, 13, 13);//levi
-		drawMap(16, 38, 228, 148, 13, 13);//desni dole
-		}else if(unisteni==3){
-		drawMap(16, 68, 228, 59, 14, 13);//desni
-		drawMap(16, 38, 63, 164, 14, 13);//levi dole 
-		drawMap(16, 38, 48, 43, 13, 13);//levi
-		}else if(unisteni==4){
-		drawMap(16, 38, 63, 164, 14, 13);//levi dole 
-		drawMap(16, 38, 48, 43, 13, 13);//levi
-		drawMap(16, 38, 228, 148, 13, 13);//desni dole
-		}else{
-		drawMap(16, 68, 228, 59, 14, 13);//desni
-		drawMap(16, 38, 63, 164, 14, 13);//levi dole 
-		drawMap(16, 38, 48, 43, 13, 13);//levi
-		drawMap(16, 38, 228, 148, 13, 13);//desni dole
-		}
-	
-}
+	if(unistenaDesnaStrana!=1){
+			drawMap(16, 68, 228, 59, 14, 13); //desni zivanic
+	}
 
+	if(unistenaDesnaDonjaStrana!=1){
+			drawMap(16, 38, 63, 164, 14, 13); //desni donji zivanic 
+
+	}
+
+	if(unistenaLevaStrana!=1){
+			drawMap(16, 38, 48, 43, 13, 13);  //levi zivanic
+	}
+
+	if(unistenaLevaDonjaStrana!=1){
+			drawMap(16, 38, 228, 148, 13, 13);//levi donji zivanic
+	}
+}
+//ZIVOTI
 void deleteCoveculjak() {
 	if (endCheck == 0) {
 		drawMap(54, 103, 0, 225, 16, 13);
@@ -1356,8 +1311,6 @@ int main() {
 	firstTimeCenter = 0;
 
 	init_platform();
-	unsigned char string_s[] = "LPRS 2\n";
-
 	//helping map for cleaning the table when blank button is pressed
 	for (p = 0; p < SIZE; p++) {
 		for (r = 0; r < SIZE; r++) {
@@ -1401,6 +1354,10 @@ int main() {
 	}
 
 	initializeMapDrawing();
+	initializeLeftHoleDrawing();
+	initializeBottomLeftHoleDrawing();
+	initializeBottomRightHoleDrawing();
+	initializeRightHoleDrawing();
 
 	initializeZivanis();
 
@@ -1504,15 +1461,75 @@ int main() {
 			endOfGame = 0;
 
 			initializeMapDrawing();
+			initializeLeftHoleDrawing();
+			initializeBottomLeftHoleDrawing();
+			initializeBottomRightHoleDrawing();
+			initializeRightHoleDrawing();
 			deleteCoveculjak();
 			drawMap(0, 0, 153, 103, 14, 14);
 
 			endCheck++;
 		}
 
-
-
 	}
+
+	if(unistenaDesnaDonjaStrana==1 & unistenaDesnaStrana==1 & unistenaLevaStrana==1 & unistenaLevaDonjaStrana ==1){
+
+				init_platform();
+					//helping map for cleaning the table when blank button is pressed
+					for (p = 0; p < SIZE; p++) {
+						for (r = 0; r < SIZE; r++) {
+							indicationMap[p][r] = BLANK;
+						}
+					}
+
+					//map which contains all the moves of the player
+					for (i = 0; i < 9; i++) {
+						for (j = 0; j < 9; j++) {
+							blankMap[i][j] = BEG;
+						}
+					}
+
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x00, 0x0); // direct mode   0
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x04, 0x3); // display_mode  1
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x08, 0x0); // show frame      2
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x0C, 0x1); // font size       3
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x10, 0xFFFFFF); // foreground 4
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x14, 0x0000FF); // background color 5
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x18, 0xFF0000); // frame color      6
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x20, 1);
+
+					//black background
+					for (x = 0; x < 320; x++) {
+						for (y = 0; y < 240; y++) {
+							i = y * 320 + x;
+							VGA_PERIPH_MEM_mWriteMemory(
+									XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + GRAPHICS_MEM_OFF + i * 4,
+									0x000000);
+
+						}
+					}
+
+					initializeMapDrawing();
+					initializeLeftHoleDrawing();
+					initializeBottomLeftHoleDrawing();
+					initializeBottomRightHoleDrawing();
+					initializeRightHoleDrawing();
+
+					initializeZivanis();
+
+					initializeDiggerMoving();
+
+
+			}
 
 	cleanup_platform();
 

@@ -60,6 +60,8 @@
 #define BLANK '0'
 #define FLAG '#'
 #define NUMOFMINES 9
+int unisteni=0;
+
 //BEG---unpened field
 #define BEG '@'
 
@@ -204,7 +206,7 @@ void drawMapReverseDU(int in_x, int in_y, int out_x, int out_y, int width,
 
 int startX = 153, startY = 103, endX = 166, endY = 116;
 int oldStartX, oldStartY, oldEndX, oldEndY;
-int x, y, ic, ib, i, j, t, tmp;
+int x, y, ic, ib, i, j, t, tmp,vreme;
 int flagGoRight1 = 1, flagGoLeft1 = 0, rightH1 = 227, leftH1 = 0;
 int flagGoRight2 = 1, flagGoLeft2 = 0, rightH2 = 62, leftH2 = 0;
 int flagGoDown1 = 1, flagGoUp1 = 0, downH1 = 43, upH1 = 0;
@@ -212,7 +214,6 @@ int flagGoDown2 = 1, flagGoUp2 = 0, downH2 = 148, upH2 = 0;
 int tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
 int previousState = 0;
 int endCheck = 0;
-
 void down() {
 	if (endY < 221) {
 		oldStartY = startY;
@@ -251,6 +252,7 @@ void right() {
 			drawMap(30, 0, startX, startY, 14, 14);
 			drawMap(150, 16, oldStartX, startY, 1, 14);
 			tmp++;
+
 		} else if (tmp < 8) {
 			drawMap(46, 0, startX, startY, 14, 14);
 			drawMap(150, 16, oldStartX, startY, 1, 14);
@@ -319,6 +321,9 @@ void up() {
 }
 
 void moveRightZivanic() {
+	if(unisteni==4){
+
+	}else{
 	if (flagGoRight1 == 1) {
 		rightH1++;
 		if (rightH1 > 272) {
@@ -340,7 +345,6 @@ void moveRightZivanic() {
 				tmp1 = 0;
 				drawMap(150, 16, rightH1, 59, 1, 14);
 			}
-
 		}
 	} else if (flagGoLeft1 == 1) {
 		leftH1--;
@@ -365,12 +369,15 @@ void moveRightZivanic() {
 			}
 
 		}
-
 	}
+	}
+
 }
 
 void moveBottomRightZivanic() {
+	if(unisteni==3){
 
+	}else{
 	if (flagGoDown2 == 1) {
 		downH2++;
 		if (downH2 > 193) {
@@ -419,12 +426,12 @@ void moveBottomRightZivanic() {
 			}
 
 		}
-
+	}
 	}
 }
 
 void moveLeftZivanic() {
-
+	if(unisteni==1){}else{
 	if (flagGoDown1 == 1) {
 		downH1++;
 		if (downH1 > 88) {
@@ -473,11 +480,12 @@ void moveLeftZivanic() {
 			}
 
 		}
-
+	}
 	}
 }
 
 void moveBottomLeftZivanic() {
+	if(unisteni==2){}else{
 	if (flagGoRight2 == 1) {
 		rightH2++;
 		if (rightH2 > 108) {
@@ -524,7 +532,7 @@ void moveBottomLeftZivanic() {
 			}
 
 		}
-
+		
 	}
 }
 void endOfGameCheck() {
@@ -534,7 +542,7 @@ void endOfGameCheck() {
 		if (downH1 == startY - 14 || downH1 == startY - 13
 				|| downH1 == startY - 15) {
 			if (startX == 47 || startX == 48) {
-				endOfGame = 1;
+				endOfGame=1;
 			}
 		}
 	} else if (flagGoUp1 == 1) {
@@ -600,25 +608,157 @@ void endOfGameCheck() {
 }
 
 
+void flame(){
+	//Check left
+	if (flagGoDown1 == 1) {
+		if (downH1 == startY - 17 || downH1 == startY - 11
+				|| downH1 == startY -15) {
+						if (startX == 47 || startX == 48 || startX==46) {
+				unisteni= 1;
+				score+=150;
+						}
+		}
+	} else if (flagGoUp1 == 1) {
+		if (upH1 == startY + 17 || upH1 == startY +11 || upH1 == startY + 15) {
+						if (startX == 47 || startX == 48 || startX==46) {
+				unisteni= 1;
+				score+=150;
+						}		
+		}
+	}
+
+	//Check bottom left
+	if (flagGoRight2 == 1) {
+		if (rightH2 == startX - 17 || rightH2 == startX - 11
+				|| rightH2 == startX - 15) {
+								if (startY == 163 || startY == 164 || startY==162) {
+				unisteni= 2;
+				score+=150;
+								}
+		}
+	} else if (flagGoLeft2 == 1) {
+		if (leftH2 == startX + 17 || leftH2 == startX + 11
+				|| leftH2 == startX + 15) {
+								if (startY == 163 || startY == 164 || startY==162) {
+				unisteni= 2;
+				score+=150;
+								}
+		}
+	}
+
+	//Check right
+
+	if (flagGoRight1 == 1) {
+		if (rightH1 == startX - 17 || rightH1 == startX - 11
+				|| rightH1 == startX - 15) {
+										if (startY == 58 || startY == 59 || startY==57) {
+				unisteni= 4;
+				score+=250;
+										}
+		}
+	} else if (flagGoLeft1 == 1) {
+		if (leftH1 == startX + 17 || leftH1 == startX + 11
+				|| leftH1 == startX + 15) {
+					if (startY == 58 || startY == 59 || startY ==57) {
+				unisteni= 4;
+				score+=250;
+					}
+		}
+	}
+
+	//Check bottom right
+
+	if (flagGoDown2 == 1) {
+		if (downH2 == startY - 17 || downH2 == startY -11
+				|| downH2 == startY - 15) {
+								if (startX == 227 || startX == 228 || startX==226) {
+				unisteni= 3;
+				score+=250;
+								}
+		}
+	} else if (flagGoUp2 == 1) {
+		if (upH2 == startY + 17 || upH2 == startY + 11 || upH2 == startY + 15) {
+						if (startX == 227 || startX == 228 || startX ==226) {
+				unisteni= 3;
+				score+=250;
+						}
+		}
+	}
+	
+}
+void unisteniLevi(){
+	drawMap(150, 16, 48, 43, 14, 15);
+	drawMap(150, 16, 48, 58, 14, 15);
+	drawMap(150, 16, 48, 73, 14, 15);
+	drawMap(150, 16, 48, 88, 14, 14);
+	drawMap(0,39,150,0,13,12);
+}
+void unisteniDesni(){
+	drawMap(150, 16, 228, 148, 14, 15);
+	drawMap(150, 16, 228, 163, 14, 15);
+	drawMap(150, 16, 228, 178, 14, 15);
+	drawMap(150, 16, 228, 193, 14, 14);
+    drawMap(0,67,162,0,13,12);
+
+}
+void unisteniLeviDole(){
+	drawMap(150, 16, 63, 163, 15, 14);
+	drawMap(150, 16, 78, 163, 15, 14);
+	drawMap(150, 16, 93, 163, 15, 14);
+	drawMap(150, 16, 108, 163, 14, 14);
+	drawMap(0,39,162,0,13,12);
+
+}
+void unisteniDesniDole(){
+	drawMap(150, 16, 228, 148, 14, 15);
+	drawMap(150, 16, 228, 163, 14, 15);
+	drawMap(150, 16, 228, 178, 14, 15);
+	drawMap(150, 16, 228, 193, 14, 14);
+	drawMap(0,39,138,0,13,12);
+
+}
+
 void move() {
-
 	while (endOfGame != 1) {
-
 		endOfGameCheck();
-		endOfGameCheck();
-				if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & CENTER) == 0) {
-					drawMap(0,85,50,8,17,13);
-					drawMap(0,85,50,8,17,13);
-					drawMap(0,85,50,8,17,13);
-					drawMap(0,85,50,8,17,13);
-
-					for (t = 0; t < 1500000; t++) {
-																}
-					drawMap(138,85,50,8,17,13);
-
-
+			flame();
+		if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & CENTER) == 0) {
+				//ako je desno
+				if(previousState==2){
+									for (vreme = 0; vreme < 150; vreme++) {
+										drawMap(0,85,startX+13,startY,14,14);
+									}
+									drawMap(138,60,startX+13,startY,14,14);
 				}
-				else if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & DOWN) == 0) {
+				else if(previousState==3){
+						//ako je levo
+									for (vreme = 0; vreme < 150; vreme++) {
+
+										drawMapReverseRL(0,85,startX-13,startY,14,14);
+									}
+									drawMap(138,60,startX-17,startY,14,14);
+				}
+				else if(previousState==4){
+						//ako je gore
+									for (vreme = 0; vreme < 150; vreme++) {
+														drawMap(154,85,startX,startY-14,14,14);
+
+													}
+													drawMap(138,60,startX,startY-14,14,14);
+				}
+				else{
+						//ako je dole
+								for (vreme = 0; vreme < 150; vreme++) {
+									drawMap(139,85,startX,startY+14,14,14);
+
+																	}
+								drawMap(138,60,startX,startY+14,14,14);
+				}
+
+								}
+	
+
+		else if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & DOWN) == 0) {
 			if ((startX - 3) % 15 != 0) {
 				if (previousState == 3) {
 					while ((startX - 3) % 15 != 0) {
@@ -732,10 +872,33 @@ void move() {
 			}
 		}
 
+		if (unisteni==1){
+		moveRightZivanic();
+		moveBottomLeftZivanic();
+		moveBottomRightZivanic();
+		unisteniLevi();
+		}else if(unisteni==2){
+		moveRightZivanic();
+		moveLeftZivanic();
+		moveBottomRightZivanic();
+		unisteniLeviDole();
+		}else if(unisteni==3){
+		moveRightZivanic();
+		moveBottomLeftZivanic();
+		moveLeftZivanic();
+		unisteniDesniDole();
+		}else if(unisteni==4){
+		moveBottomLeftZivanic();
+		moveLeftZivanic();
+		moveBottomRightZivanic();
+		unisteniDesni();
+		}else{
 		moveRightZivanic();
 		moveBottomLeftZivanic();
 		moveLeftZivanic();
 		moveBottomRightZivanic();
+		
+		}
 
 		for (t = 0; t < 170000; t++) {
 		}
@@ -1140,10 +1303,29 @@ void initializeZivanis() {
 	drawMap(126,104,32,8,5,7);
 
 	/////////// ZIVANICI ////////////////
-	drawMap(16, 68, 228, 59, 14, 13);
-	drawMap(16, 38, 63, 164, 14, 13);
-	drawMap(16, 38, 48, 43, 13, 13);
-	drawMap(16, 38, 228, 148, 13, 13);
+	if (unisteni==1){
+		drawMap(16, 68, 228, 59, 14, 13);//desni
+		drawMap(16, 38, 63, 164, 14, 13);//levi dole 
+		drawMap(16, 38, 228, 148, 13, 13);//desni dole
+		}else if(unisteni==2){
+		drawMap(16, 68, 228, 59, 14, 13);//desni
+		drawMap(16, 38, 48, 43, 13, 13);//levi
+		drawMap(16, 38, 228, 148, 13, 13);//desni dole
+		}else if(unisteni==3){
+		drawMap(16, 68, 228, 59, 14, 13);//desni
+		drawMap(16, 38, 63, 164, 14, 13);//levi dole 
+		drawMap(16, 38, 48, 43, 13, 13);//levi
+		}else if(unisteni==4){
+		drawMap(16, 38, 63, 164, 14, 13);//levi dole 
+		drawMap(16, 38, 48, 43, 13, 13);//levi
+		drawMap(16, 38, 228, 148, 13, 13);//desni dole
+		}else{
+		drawMap(16, 68, 228, 59, 14, 13);//desni
+		drawMap(16, 38, 63, 164, 14, 13);//levi dole 
+		drawMap(16, 38, 48, 43, 13, 13);//levi
+		drawMap(16, 38, 228, 148, 13, 13);//desni dole
+		}
+	
 }
 
 void deleteCoveculjak() {

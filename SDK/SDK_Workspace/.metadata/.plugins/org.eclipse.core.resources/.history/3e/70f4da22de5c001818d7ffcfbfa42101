@@ -204,7 +204,7 @@ void drawMapReverseDU(int in_x, int in_y, int out_x, int out_y, int width,
 
 int startX = 153, startY = 103, endX = 166, endY = 116;
 int oldStartX, oldStartY, oldEndX, oldEndY;
-int x, y, ic, ib, i, j, t, tmp;
+int x, y, ic, ib, i, j, t, tmp,vreme;
 int flagGoRight1 = 1, flagGoLeft1 = 0, rightH1 = 227, leftH1 = 0;
 int flagGoRight2 = 1, flagGoLeft2 = 0, rightH2 = 62, leftH2 = 0;
 int flagGoDown1 = 1, flagGoUp1 = 0, downH1 = 43, upH1 = 0;
@@ -212,7 +212,6 @@ int flagGoDown2 = 1, flagGoUp2 = 0, downH2 = 148, upH2 = 0;
 int tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
 int previousState = 0;
 int endCheck = 0;
-
 void down() {
 	if (endY < 221) {
 		oldStartY = startY;
@@ -251,6 +250,7 @@ void right() {
 			drawMap(30, 0, startX, startY, 14, 14);
 			drawMap(150, 16, oldStartX, startY, 1, 14);
 			tmp++;
+
 		} else if (tmp < 8) {
 			drawMap(46, 0, startX, startY, 14, 14);
 			drawMap(150, 16, oldStartX, startY, 1, 14);
@@ -340,7 +340,6 @@ void moveRightZivanic() {
 				tmp1 = 0;
 				drawMap(150, 16, rightH1, 59, 1, 14);
 			}
-
 		}
 	} else if (flagGoLeft1 == 1) {
 		leftH1--;
@@ -367,6 +366,7 @@ void moveRightZivanic() {
 		}
 
 	}
+
 }
 
 void moveBottomRightZivanic() {
@@ -601,31 +601,25 @@ void endOfGameCheck() {
 
 
 void move() {
-
+	
 	while (endOfGame != 1) {
 
 		endOfGameCheck();
-		endOfGameCheck();
-				if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & CENTER) == 0) {
 
 
-					for (t = 0; t < 100; t++) {drawMap(0,85,50,8,17,13);
-												}
-					drawMap(138,85,50,8,17,13);
+	
 
-
-				}
-				else if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & DOWN) == 0) {
+		if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & DOWN) == 0) {
 			if ((startX - 3) % 15 != 0) {
 				if (previousState == 3) {
 					while ((startX - 3) % 15 != 0) {
-						for (t = 0; t < 150000; t++) {
-						}
+
 						left();
 						score+=0.25;
 						updateScore();
 					}
 				}
+			}
 				if (previousState == 2) {
 					while ((startX - 3) % 15 != 0) {
 						for (t = 0; t < 150000; t++) {
@@ -637,7 +631,7 @@ void move() {
 					}
 				}
 
-			} else {
+			 else {
 				down();
 				score+=0.25;
 				updateScore();
