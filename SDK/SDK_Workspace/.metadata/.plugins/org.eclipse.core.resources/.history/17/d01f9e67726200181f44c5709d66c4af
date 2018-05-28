@@ -698,22 +698,28 @@ void flame(){
 	
 
 }
-
+boolean levi;
+int desniDole;
+int desni;
+int leviDole;
 //ISCRTAVANJE BAD GUYS KOJE POBEDIM
 void unisteniLevi(){
-	drawMap(0,39,156,0,13,13);
-
+		levi++;
+	    drawMap(0,39,156,0,13,13);
 }
 void unisteniDesni(){
-	drawMap(0,67,169,0,13,13);
+		desni++;
+		drawMap(0,67,169,13,13,13);
 
 }
 void unisteniLeviDole(){
-	drawMap(0,39,143,0,13,13);
+		leviDole++;
+		drawMap(0,39,156,0,13,13);
 
 }
 void unisteniDesniDole(){
-  	drawMap(0,39,130,0,13,13);
+		desniDole++;
+		drawMap(0,39,156,0,13,13);
 
 }
 
@@ -904,80 +910,6 @@ void move() {
 
 		for (t = 0; t < 150000; t++) {
 		}
-
-		if(unistenaDesnaDonjaStrana==1 & unistenaDesnaStrana==1 & unistenaLevaStrana==1 & unistenaLevaDonjaStrana ==1){
-
-
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x00, 0x0); // direct mode   0
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x04, 0x3); // display_mode  1
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x08, 0x0); // show frame      2
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x0C, 0x1); // font size       3
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x10, 0xFFFFFF); // foreground 4
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x14, 0x0000FF); // background color 5
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x18, 0xFF0000); // frame color      6
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x20, 1);
-
-					//black background
-					for (x = 0; x < 320; x++) {
-						for (y = 0; y < 240; y++) {
-							i = y * 320 + x;
-							VGA_PERIPH_MEM_mWriteMemory(
-									XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + GRAPHICS_MEM_OFF + i * 4,
-									0x000000);
-
-						}
-					}
-				
-				//print WIN
-				//W
-				drawMap(134,16,0,22,16,16);
-				drawMap(134,16,0,38,16,16);
-				drawMap(134,16,4,54,16,16);
-				drawMap(134,16,4,70,16,16);
-				drawMap(134,16,20,70,16,16);
-				drawMap(134,16,36,54,16,16);
-				drawMap(134,16,52,70,16,16);
-				drawMap(134,16,68,70,16,16);
-				drawMap(134,16,68,54,16,16);
-				drawMap(134,16,71,38,16,16);
-				drawMap(134,16,71,22,16,16);
-
-				//I
-				drawMap(134,16,90,22,16,16);
-				drawMap(134,16,90,38,16,16);
-				drawMap(134,16,90,54,16,16);
-				drawMap(134,16,90,70,16,16);
-
-				//N
-				/*| */
-				drawMap(134,16,113,22,16,16);
-				drawMap(134,16,113,38,16,16);
-				drawMap(134,16,113,54,16,16);
-				drawMap(134,16,113,70,16,16);
-				/* \ */
-				drawMap(134,16,129,46,16,16);
-				drawMap(134,16,144,62,16,16);
-
-				/*| */
-				drawMap(134,16,160,22,16,16);
-				drawMap(134,16,160,38,16,16);
-				drawMap(134,16,160,54,16,16);
-				drawMap(134,16,160,70,16,16);
-
-
-				for (t = 0; t < 150000000; t++) {
-				}	
-				break;
-
-			}
 
 	}
 }
@@ -1568,6 +1500,92 @@ int main() {
 		}
 
 	}
+	
+
+	if(unistenaDesnaDonjaStrana==1 & unistenaDesnaStrana==1 & unistenaLevaStrana==1 & unistenaLevaDonjaStrana ==1){
+
+				init_platform();
+					//helping map for cleaning the table when blank button is pressed
+					for (p = 0; p < SIZE; p++) {
+						for (r = 0; r < SIZE; r++) {
+							indicationMap[p][r] = BLANK;
+						}
+					}
+
+					//map which contains all the moves of the player
+					for (i = 0; i < 9; i++) {
+						for (j = 0; j < 9; j++) {
+							blankMap[i][j] = BEG;
+						}
+					}
+
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x00, 0x0); // direct mode   0
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x04, 0x3); // display_mode  1
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x08, 0x0); // show frame      2
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x0C, 0x1); // font size       3
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x10, 0xFFFFFF); // foreground 4
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x14, 0x0000FF); // background color 5
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x18, 0xFF0000); // frame color      6
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x20, 1);
+
+					//black background
+					for (x = 0; x < 320; x++) {
+						for (y = 0; y < 240; y++) {
+							i = y * 320 + x;
+							VGA_PERIPH_MEM_mWriteMemory(
+									XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + GRAPHICS_MEM_OFF + i * 4,
+									0x000000);
+
+						}
+					}
+				
+				//print WIN
+				//W
+				drawMap(134,16,0,22,16,16);
+				drawMap(134,16,0,38,16,16);
+				drawMap(134,16,4,54,16,16);
+				drawMap(134,16,4,70,16,16);
+				drawMap(134,16,20,70,16,16);
+				drawMap(134,16,36,54,16,16);
+				drawMap(134,16,52,70,16,16);
+				drawMap(134,16,68,70,16,16);
+				drawMap(134,16,167,54,16,16);
+				drawMap(164,16,71,38,16,16);
+				drawMap(164,16,71,22,16,16);
+
+				//I
+				drawMap(134,16,90,22,16,16);
+				drawMap(134,16,90,38,16,16);
+				drawMap(134,16,90,54,16,16);
+				drawMap(134,16,90,70,16,16);
+
+				//N
+				/*| */
+				drawMap(134,16,113,22,16,16);
+				drawMap(134,16,113,38,16,16);
+				drawMap(134,16,113,54,16,16);
+				drawMap(134,16,113,70,16,16);
+				/* \ */
+				drawMap(134,16,129,46,16,16);
+				drawMap(134,16,144,62,16,16);
+
+				/*| */
+				drawMap(134,16,160,22,16,16);
+				drawMap(134,16,160,38,16,16);
+				drawMap(134,16,160,54,16,16);
+				drawMap(134,16,160,70,16,16);
+
+
+			}
+
 	cleanup_platform();
 
 	return 0;

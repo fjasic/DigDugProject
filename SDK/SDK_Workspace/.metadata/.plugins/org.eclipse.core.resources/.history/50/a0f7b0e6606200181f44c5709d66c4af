@@ -695,28 +695,28 @@ void flame(){
 							}	
 		}
 	}
-	
 
 }
-
 //ISCRTAVANJE BAD GUYS KOJE POBEDIM
 void unisteniLevi(){
-	drawMap(0,39,156,0,13,13);
-
+	initializeLeftHoleDrawing();
+	drawMap(0,39,130,0,13,13);
 }
 void unisteniDesni(){
+	initializeRightHoleDrawing();
 	drawMap(0,67,169,0,13,13);
 
 }
 void unisteniLeviDole(){
-	drawMap(0,39,143,0,13,13);
+	initializeBottomLeftHoleDrawing();
+	drawMap(0,39,156,0,13,13);
 
 }
 void unisteniDesniDole(){
-  	drawMap(0,39,130,0,13,13);
+	initializeBottomRightHoleDrawing();
+	drawMap(0,39,143,0,13,13);
 
 }
-
 
 //KRETANJE 
 void move() {
@@ -874,110 +874,10 @@ void move() {
 			}
 		}
 
-		if (unistenaLevaStrana==1){
-			if(unistenaDesnaStrana!=1){moveRightZivanic();}
-			if(unistenaLevaDonjaStrana!=1){moveBottomLeftZivanic();}
-			if(unistenaDesnaDonjaStrana!=1){moveBottomRightZivanic();}
-			unisteniLevi();
-			}else if(unistenaLevaDonjaStrana==1){
-			if(unistenaDesnaStrana!=1){moveRightZivanic();}
-			if(unistenaLevaStrana!=1){moveLeftZivanic();}
-			if(unistenaDesnaDonjaStrana!=1){moveBottomRightZivanic();}
-			unisteniLeviDole();
-			}else if(unistenaDesnaDonjaStrana==1){
-			if(unistenaLevaDonjaStrana!=1){moveBottomLeftZivanic();}
-			if(unistenaLevaStrana!=1){moveLeftZivanic();}
-			if(unistenaDesnaStrana!=1){moveRightZivanic();}
-			unisteniDesniDole();
-			}else if(unistenaDesnaStrana==1){
-			if(unistenaLevaDonjaStrana!=1){moveBottomLeftZivanic();}
-			if(unistenaLevaStrana!=1){moveLeftZivanic();}
-			if(unistenaDesnaDonjaStrana!=1){moveBottomRightZivanic();}
-			unisteniDesni();
-			}else{
-			moveRightZivanic();
-			moveBottomLeftZivanic();
-			moveLeftZivanic();
-			moveBottomRightZivanic();
-			}
 
 
 		for (t = 0; t < 150000; t++) {
 		}
-
-		if(unistenaDesnaDonjaStrana==1 & unistenaDesnaStrana==1 & unistenaLevaStrana==1 & unistenaLevaDonjaStrana ==1){
-
-
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x00, 0x0); // direct mode   0
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x04, 0x3); // display_mode  1
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x08, 0x0); // show frame      2
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x0C, 0x1); // font size       3
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x10, 0xFFFFFF); // foreground 4
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x14, 0x0000FF); // background color 5
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x18, 0xFF0000); // frame color      6
-					VGA_PERIPH_MEM_mWriteMemory(
-							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x20, 1);
-
-					//black background
-					for (x = 0; x < 320; x++) {
-						for (y = 0; y < 240; y++) {
-							i = y * 320 + x;
-							VGA_PERIPH_MEM_mWriteMemory(
-									XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + GRAPHICS_MEM_OFF + i * 4,
-									0x000000);
-
-						}
-					}
-				
-				//print WIN
-				//W
-				drawMap(134,16,0,22,16,16);
-				drawMap(134,16,0,38,16,16);
-				drawMap(134,16,4,54,16,16);
-				drawMap(134,16,4,70,16,16);
-				drawMap(134,16,20,70,16,16);
-				drawMap(134,16,36,54,16,16);
-				drawMap(134,16,52,70,16,16);
-				drawMap(134,16,68,70,16,16);
-				drawMap(134,16,68,54,16,16);
-				drawMap(134,16,71,38,16,16);
-				drawMap(134,16,71,22,16,16);
-
-				//I
-				drawMap(134,16,90,22,16,16);
-				drawMap(134,16,90,38,16,16);
-				drawMap(134,16,90,54,16,16);
-				drawMap(134,16,90,70,16,16);
-
-				//N
-				/*| */
-				drawMap(134,16,113,22,16,16);
-				drawMap(134,16,113,38,16,16);
-				drawMap(134,16,113,54,16,16);
-				drawMap(134,16,113,70,16,16);
-				/* \ */
-				drawMap(134,16,129,46,16,16);
-				drawMap(134,16,144,62,16,16);
-
-				/*| */
-				drawMap(134,16,160,22,16,16);
-				drawMap(134,16,160,38,16,16);
-				drawMap(134,16,160,54,16,16);
-				drawMap(134,16,160,70,16,16);
-
-
-				for (t = 0; t < 150000000; t++) {
-				}	
-				break;
-
-			}
 
 	}
 }
@@ -1168,8 +1068,6 @@ void updateScore(){
 		drawMap(135,104,8,8,5,7);
 	}
 
-
-
 }
 //POMERANJE PLAYERA
 void initializeDiggerMoving() {
@@ -1241,6 +1139,7 @@ void initializeDiggerMoving() {
 			drawMapReverseRL(150, 16, 153, i + 89, 14, 1);
 		}
 	}
+
 	//steps classic right
 	drawMap(150, 16, 153, 102, 14, 1);
 	drawMap(0, 0, 153, 103, 14, 14);
@@ -1300,11 +1199,13 @@ void initializeMapDrawing() {
 
 	// Flower
 	drawMap(107, 86, 306, 14, 13, 13);
-	//center hole
+	//Center hole
+	// x -> 3 + 9 * (14 + 1) = 138
+	// y -> /27/ + 1 + 6 * (14 + 1) = 103
+
 	drawMap(150, 16, 138, 103, 15, 14);
 	drawMap(150, 16, 153, 103, 15, 14);
 	drawMap(150, 16, 168, 103, 14, 14);
-
 
 
 }
@@ -1320,7 +1221,6 @@ void initializeBottomLeftHoleDrawing(){
 	drawMap(150, 16, 78, 163, 15, 14);
 	drawMap(150, 16, 93, 163, 15, 14);
 	drawMap(150, 16, 108, 163, 14, 14);
-
 }
 void initializeBottomRightHoleDrawing(){
 	drawMap(150, 16, 228, 148, 14, 15);
@@ -1343,7 +1243,6 @@ void initializeZivanis() {
 	drawMap(102,104,16,0,7,7);
 	drawMap(110,104,24,0,7,7);
 	drawMap(118,104,32,0,7,7);
-
 	//zero
 	drawMap(126,104,32,8,5,7);
 
@@ -1549,25 +1448,71 @@ int main() {
 			initializeBottomRightHoleDrawing();
 			initializeRightHoleDrawing();
 			deleteCoveculjak();
-			if (unistenaLevaStrana==1){
-				initializeLeftHoleDrawing();
-			}else if(unistenaLevaDonjaStrana==1){
-				initializeBottomLeftHoleDrawing();
-			unisteniLeviDole();
-			}else if(unistenaDesnaDonjaStrana==1){
-				initializeBottomRightHoleDrawing();
-		unisteniDesniDole();
-			}else if(unistenaDesnaStrana==1){
-				initializeRightHoleDrawing();
-
-		unisteniDesni();
-			}
 			drawMap(0, 0, 153, 103, 14, 14);
 
 			endCheck++;
 		}
 
 	}
+
+	if(unistenaDesnaDonjaStrana==1 & unistenaDesnaStrana==1 & unistenaLevaStrana==1 & unistenaLevaDonjaStrana ==1){
+
+				init_platform();
+					//helping map for cleaning the table when blank button is pressed
+					for (p = 0; p < SIZE; p++) {
+						for (r = 0; r < SIZE; r++) {
+							indicationMap[p][r] = BLANK;
+						}
+					}
+
+					//map which contains all the moves of the player
+					for (i = 0; i < 9; i++) {
+						for (j = 0; j < 9; j++) {
+							blankMap[i][j] = BEG;
+						}
+					}
+
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x00, 0x0); // direct mode   0
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x04, 0x3); // display_mode  1
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x08, 0x0); // show frame      2
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x0C, 0x1); // font size       3
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x10, 0xFFFFFF); // foreground 4
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x14, 0x0000FF); // background color 5
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x18, 0xFF0000); // frame color      6
+					VGA_PERIPH_MEM_mWriteMemory(
+							XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x20, 1);
+
+					//black background
+					for (x = 0; x < 320; x++) {
+						for (y = 0; y < 240; y++) {
+							i = y * 320 + x;
+							VGA_PERIPH_MEM_mWriteMemory(
+									XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + GRAPHICS_MEM_OFF + i * 4,
+									0x000000);
+
+						}
+					}
+
+					initializeMapDrawing();
+					initializeLeftHoleDrawing();
+					initializeBottomLeftHoleDrawing();
+					initializeBottomRightHoleDrawing();
+					initializeRightHoleDrawing();
+
+					initializeZivanis();
+
+					initializeDiggerMoving();
+
+
+			}
+
 	cleanup_platform();
 
 	return 0;
